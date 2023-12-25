@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    #quiz-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #question-container, #result-container {
+      display: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container">
+  <div id="question-container">
+    <h2 id="question-text"></h2>
+    <button onclick="checkAnswer('Yes')">Yes</button>
+    <button onclick="checkAnswer('No')">No</button>
+  </div>
+
+  <div id="result-container">
+    <p id="result-text"></p>
+    <p id="custom-message"></p>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    { text: 'Do I manage to piss you off every single day since 25th Dec 2017?', correctAnswer: 'Yes' },
+    { text: 'Did you ever think we would last together this long?', correctAnswer: 'No' },
+    { text: 'Does me teasing you over me being younger make you wanna punch me?', correctAnswer: 'Yes' },
+    { text: 'Do you think i miss you more than vadapav?', correctAnswer: 'No' },
+    { text: 'Do you plan on building a partnership with me for rest of my life?', correctAnswer: 'Yes' },
+    // Add more questions below in the same format
+    // { text: 'Your Question Here', correctAnswer: 'CorrectAnswerHere' },
+  ];
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+
+  function showQuestion() {
+    const questionContainer = document.getElementById('question-container');
+    const questionText = document.getElementById('question-text');
+    questionText.textContent = questions[currentQuestionIndex].text;
+    questionContainer.style.display = 'block';
+  }
+
+  function showResult() {
+    const questionContainer = document.getElementById('question-container');
+    const resultContainer = document.getElementById('result-container');
+    const resultText = document.getElementById('result-text');
+    const customMessage = document.getElementById('custom-message');
+
+    questionContainer.style.display = 'none';
+    resultContainer.style.display = 'block';
+
+    resultText.textContent = `Your score: ${score} out of ${questions.length}`;
+
+    // Add your custom message below
+    const customMessageText = "Congratulations! You completed the quiz. I know you dont care about the score, may it be whatever, i know you wont leave even a inch of me ever in this lifetime.";
+    customMessage.textContent = customMessageText;
+  }
+
+  function checkAnswer(answer) {
+    if (answer === questions[currentQuestionIndex].correctAnswer) {
+      score++;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  showQuestion();
+</script>
+
+</body>
+</html>
